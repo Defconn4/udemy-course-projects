@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import "./ExpenseForm.css";
 
 export default function ExpenseForm(props) {
+  const { setShowForm } = props;
   const [enteredTitle, setEnteredTitle] = useState("");
   const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredDate, setEnteredDate] = useState("");
@@ -42,7 +43,7 @@ export default function ExpenseForm(props) {
 
     const expenseData = {
       title: enteredTitle,
-      amount: enteredAmount,
+      amount: +enteredAmount,
       date: new Date(enteredDate),
     };
 
@@ -50,6 +51,8 @@ export default function ExpenseForm(props) {
     setEnteredTitle("");
     setEnteredAmount("");
     setEnteredDate("");
+
+    setShowForm(false);
   };
 
   return (
@@ -82,10 +85,10 @@ export default function ExpenseForm(props) {
             value={enteredDate}
             onChange={dateChangeHandler}
           />
-          {/* Default values for eventual filtering, these are just basic HTML elements */}
         </div>
       </div>
       <div className="new-expense__actions">
+        <button onClick={() => setShowForm(false)}> Cancel </button>
         <button type="submit">Add Expense</button>
       </div>
     </form>
